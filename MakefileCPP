@@ -1,0 +1,15 @@
+CXX		= g++
+TARGET 	= container
+CPP_FILES = $(filter-out $(TARGET).cpp, $(wildcard *.c))
+OBJS	= $(patsubst %.cpp,%.o, $(CPP_FILES))
+CXXFLAGS	= -g -Wall -Werror -pedantic-errors
+LDFLAGS = 
+
+.phony: all clean
+all: $(TARGET)
+$(TARGET): $(OBJS) $(TARGET).cpp
+		$(CXX) $(OBJS) $(TARGET).cpp -o $(TARGET) $(LDFLAGS)
+%.o: %.cpp %.h
+		$(CXX) $(CXXFLAGS) -c -o $@ $<
+clean: 
+		rm -f $(OBJS) $(TARGET) $(TARGET.exe)
